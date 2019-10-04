@@ -20,19 +20,18 @@ L = numbers[0]
 D = numbers[1]
 X = numbers[2]
 
-# Find numbers whose digits sum to X
-sum_equals_X = []
+# Let N (the min) be the max possible value, and M the min possible
+N = D
+M = L
+
+# Find numbers whose digits sum to X, find N and M in the process
 for n in range(L, D+1):
     n_str = str(n)
     if (sum([int(c) for c in n_str]) == X):
-        sum_equals_X.append(n)
-
-# Sort digits whose sum equals X
-sum_equals_X.sort()
-
-# N = first item in list, M = last
-N = sum_equals_X[0]
-M = sum_equals_X[-1]
+        if n < N:
+            N = n
+        if n > M:
+            M = n
 
 # Print N and M
 print(N)
