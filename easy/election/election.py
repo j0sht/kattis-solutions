@@ -1,6 +1,3 @@
-'''
-link to problem: https://open.kattis.com/problems/election2
-'''
 import sys
 
 candidate_party = dict()
@@ -14,27 +11,20 @@ for i in range(0, num_candidates):
     candidate_party[candidate] = party
 
 num_votes = int(data.pop(0))
-max_vote = 0
-winner = ''
 for i in range(0, num_votes):
     candidate = data.pop(0).strip()
     if candidate_votes.get(candidate):
         candidate_votes[candidate] += 1
     else:
         candidate_votes[candidate] = 1
-    candidates_vote_total = candidate_votes[candidate]
-    if candidates_vote_total >= max_vote:
-        if winner == '':
-            winner = candidate
-        else:
-            if candidate != winner:
-                if max_vote == candidates_vote_total:
-                    winner = 'tie'
-                else:
-                    winner = candidate
-        max_vote = candidates_vote_total
 
-if winner == 'tie':
-    print(winner)
+votes = list(candidate_votes.values())
+votes.sort(reverse=True)
+if len(votes) > 1 and votes[0] == votes[1]:
+    print("tie")
 else:
-    print(candidate_party[winner])
+    for candidate in candidate_votes:
+        if candidate_votes[candidate] == votes[0]:
+            print(candidate_party[candidate])
+            break
+
