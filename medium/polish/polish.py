@@ -41,7 +41,7 @@ def main():
 
     for (index, line) in enumerate(sys.stdin):
         raw_tokens = line.split()
-        tokens = list(map((lambda s: s.strip()), raw_tokens))
+        tokens = [token.strip() for token in raw_tokens]
         simplified = simplify(tokens)
         is_num = is_number(simplified)
         output = 'Case %d: %d' if is_num else 'Case %d: %s'
