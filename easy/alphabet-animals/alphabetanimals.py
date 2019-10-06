@@ -1,3 +1,6 @@
+'''
+link to problem: https://open.kattis.com/problems/alphabetanimals
+'''
 def main():
     import sys
 
