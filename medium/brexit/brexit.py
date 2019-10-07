@@ -1,7 +1,7 @@
 import sys
 
-def remove_country(country_rels, rel_count, home_id, removal_queue):
-    c_id = removal_queue.pop()
+def remove_country(country_rels, rel_count, home_id, removal_stack):
+    c_id = removal_stack.pop()
     
     # If c_id is the home country, print leave and finish program
     if c_id == home_id:
@@ -29,7 +29,7 @@ def remove_country(country_rels, rel_count, home_id, removal_queue):
                 if c_id in country_rels[partner]:
                     country_rels[partner].remove(c_id)
             if (curr/init) <= 0.5:
-                removal_queue.append(partner)
+                removal_stack.append(partner)
 
 def main():
     # Read input
@@ -73,9 +73,9 @@ def main():
             country_rels[country_b] = {country_a}
 
     # Compute answer
-    removal_queue = [first_to_leave]
-    while len(removal_queue) > 0:
-        remove_country(country_rels, rel_count, home_country_id, removal_queue)
+    removal_stack = [first_to_leave]
+    while len(removal_stack) > 0:
+        remove_country(country_rels, rel_count, home_country_id, removal_stack)
 
     init, curr = rel_count[home_country_id]
     if (curr/init) <= 0.5:
