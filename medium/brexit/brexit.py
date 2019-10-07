@@ -32,19 +32,21 @@ def remove_country(country_rels, rel_count, home_id, removal_queue):
                 removal_queue.append(partner)
 
 def main():
-    data = sys.stdin.readlines()
-    first_line_data = data.pop(0).split()
-
-    number_of_countries = int(first_line_data[0])
-    number_of_partnerships = int(first_line_data[1])
-    home_country_id = int(first_line_data[2])
-    first_to_leave = int(first_line_data[3])
-
+    # Read input
+    read_first_line = False
     rel_count = dict()
     country_rels = dict()
     rels = set()
-    for relationship in data:
-        countries = [int(s) for s in relationship.split()]
+    for line in sys.stdin:
+        if not read_first_line:
+            first_line_data = line.split()
+            number_of_countries = int(first_line_data[0])
+            number_of_partnerships = int(first_line_data[1])
+            home_country_id = int(first_line_data[2])
+            first_to_leave = int(first_line_data[3])
+            read_first_line = True
+            continue
+        countries = [int(s) for s in line.split()]
         country_a = countries[0]
         country_b = countries[1]
         if rel_count.get(country_a):
@@ -70,6 +72,7 @@ def main():
         else:
             country_rels[country_b] = {country_a}
 
+    # Compute answer
     removal_queue = [first_to_leave]
     while len(removal_queue) > 0:
         remove_country(country_rels, rel_count, home_country_id, removal_queue)
