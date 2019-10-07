@@ -1,8 +1,4 @@
-count = 0
-
 def cascade(rels, rel_count, c_id):
-    global count
-    count += 1
     # Get relations with first to leave, and affected partners
     affected_partners = []
     rels_to_remove = []
@@ -45,10 +41,10 @@ def main():
     first_to_leave = int(first_line_data[3])
 
     rel_count = dict()
-    rels = []
+    rels = set()
     for relationship in data:
         countries = [int(s) for s in relationship.split()]
-        rels.append(countries)
+        rels.add(countries)
         country_a = countries[0]
         country_b = countries[1]
         if rel_count.get(country_a):
